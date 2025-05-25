@@ -1,20 +1,21 @@
-import { NextResponse } from "next/server";
-import { connectDB } from "@/lib/mongodb";
-import RegistrationRequest from "@/models/RegistrationRequest";
-import User from "@/models/User";
-import { sendEmail } from "@/lib/email";
+import { NextResponse } from "next/server"
+import { connectDB } from "@/lib/mongodb"
+import RegistrationRequest from "@/models/RegistrationRequest"
+import User from "@/models/User"
+import { sendEmail } from "@/lib/email"
 
 export async function POST(request) {
     try {
-        const { requestId } = await request.json();
+        const { requestId } = await request.json()
 
-        await connectDB();
+        await connectDB()
 
-        const registrationRequest = await RegistrationRequest.findById(requestId);
+        const registrationRequest = await RegistrationRequest.findById(requestId)
         if (!registrationRequest) {
-            return NextResponse.json({ message: "Request not found" }, { status: 404 });
+            return NextResponse.json({ message: "Request not found" }, { status: 404 })
         }
 
+        // Create user account
         const user = new User({
             name: registrationRequest.name,
             email: registrationRequest.email,
@@ -23,13 +24,15 @@ export async function POST(request) {
             image: registrationRequest.image,
             role: "teacher",
             isApproved: true,
-        });
+        })
 
-        await user.save();
+        await user.save()
 
-        registrationRequest.status = "approved";
-        await registrationRequest.save();
+        // Update request status
+        registrationRequest.status = "approved"
+        await registrationRequest.save()
 
+        // Send approval email
         await sendEmail({
             to: registrationRequest.email,
             subject: "Registration Approved - UCP Portal",
@@ -39,11 +42,11 @@ export async function POST(request) {
         <p>You can now login to the UCP Portal with your credentials.</p>
         <p>Welcome to our platform!</p>
       `,
-        });
+        })
 
-        return NextResponse.json({ message: "Request approved successfully" }, { status: 200 });
+        return NextResponse.json({ message: "Request approved successfully" }, { status: 200 })
     } catch (error) {
-        console.error("Approval error:", error);
-        return NextResponse.json({ message: "Internal server error" }, { status: 500 });
+        console.error("Approval error:", error)
+        return NextResponse.json({ message: "Internal server error" }, { status: 500 })
     }
 }
