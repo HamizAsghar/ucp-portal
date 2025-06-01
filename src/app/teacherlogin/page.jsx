@@ -1,12 +1,13 @@
-import React from 'react'
-import LoginForm from '@/components/teacher/Teacherlogin'
+'use client';
 
-const page = () => {
+import LoginForm from '@/components/teacher/Teacherlogin';
+import { Suspense } from 'react';
+
+
+export default function Page() {
   return (
-    <div>
+    <Suspense fallback={<div>Loading...</div>}>
       <LoginForm/>
-    </div>
-  )
+    </Suspense>
+  );
 }
-
-export default page

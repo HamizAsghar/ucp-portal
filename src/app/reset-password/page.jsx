@@ -1,9 +1,16 @@
-import React from 'react'
+"use client"
+
+import React, { Suspense } from "react"
 import ResetPasswordForm from '@/components/teacher/ResetPassword'
-const page = () => {
+
+const Page = () => {
   return (
-    <div><ResetPasswordForm/></div>
+    <div>
+      <Suspense fallback={<div className="text-white">Loading...</div>}>
+        <ResetPasswordForm />
+      </Suspense>
+    </div>
   )
 }
 
-export default page
+export default Page

@@ -2,18 +2,19 @@
 
 import { motion } from "framer-motion"
 import { useEffect, useState } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { LucideCheckCircle, LucideXCircle, LucideArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 export default function VerifyEmail() {
-    const [status, setStatus] = useState("verifying") // verifying, success, error
+    const [status, setStatus] = useState("verifying")
     const [message, setMessage] = useState("Verifying your email...")
     const router = useRouter()
-    const searchParams = useSearchParams()
-    const token = searchParams.get("token")
 
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search)
+        const token = urlParams.get("token")
+
         const verifyEmail = async () => {
             if (!token) {
                 setStatus("error")
@@ -39,7 +40,7 @@ export default function VerifyEmail() {
         }
 
         verifyEmail()
-    }, [token, router])
+    }, [router])
 
     const container = {
         hidden: { opacity: 0 },
@@ -58,7 +59,6 @@ export default function VerifyEmail() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center p-4 relative overflow-hidden">
-            {/* Background particles */}
             <div className="absolute inset-0 overflow-hidden">
                 {[...Array(20)].map((_, i) => (
                     <motion.div
@@ -113,9 +113,8 @@ export default function VerifyEmail() {
 
                 <motion.div
                     variants={item}
-                    className={`text-center text-lg ${
-                        status === "success" ? "text-green-300" : status === "error" ? "text-red-300" : "text-gray-300"
-                    }`}
+                    className={`text-center text-lg ${status === "success" ? "text-green-300" : status === "error" ? "text-red-300" : "text-gray-300"
+                        }`}
                 >
                     {message}
                 </motion.div>
