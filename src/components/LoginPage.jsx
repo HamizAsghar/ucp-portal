@@ -31,11 +31,7 @@ export default function LoginPage() {
             icon: LucideUser,
             color: "from-blue-600 to-blue-400",
             hoverColor: "from-blue-700 to-blue-500",
-<<<<<<< HEAD
             route: "/teacherlogin",
-=======
-            route: "/teacherRegister",
->>>>>>> 80b69a8aef87a0fc8697f8b4f0e9b9241f3ac29e
         },
         {
             id: "student",

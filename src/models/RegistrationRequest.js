@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 // import mongoose from "mongoose"
 
 // const RegistrationRequestSchema = new mongoose.Schema({
@@ -81,8 +80,6 @@
 
 // export default mongoose.models.RegistrationRequest || mongoose.model("RegistrationRequest", RegistrationRequestSchema)
 
-=======
->>>>>>> 80b69a8aef87a0fc8697f8b4f0e9b9241f3ac29e
 import mongoose from "mongoose"
 
 const RegistrationRequestSchema = new mongoose.Schema({
@@ -112,7 +109,6 @@ const RegistrationRequestSchema = new mongoose.Schema({
         enum: ["pending", "approved", "rejected"],
         default: "pending",
     },
-<<<<<<< HEAD
     isVerified: {
         type: Boolean,
         default: false,
@@ -129,16 +125,10 @@ const RegistrationRequestSchema = new mongoose.Schema({
         type: Date,
         default: null,
     },
-=======
->>>>>>> 80b69a8aef87a0fc8697f8b4f0e9b9241f3ac29e
     createdAt: {
         type: Date,
         default: Date.now,
     },
 })
 
-<<<<<<< HEAD
 export default mongoose.models.RegistrationRequest || mongoose.model("RegistrationRequest", RegistrationRequestSchema)
-=======
-export default mongoose.models.RegistrationRequest || mongoose.model("RegistrationRequest", RegistrationRequestSchema)
->>>>>>> 80b69a8aef87a0fc8697f8b4f0e9b9241f3ac29e

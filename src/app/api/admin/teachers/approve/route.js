@@ -30,22 +30,13 @@ async function sendTeacherApprovalEmail(teacherData) {
             port: 587,
             secure: false,
             auth: {
-<<<<<<< HEAD
                 user: "ucpedua@gmail.com",
                 pass: "ywxk djgl cgch ivmq",
-=======
-                user: "hamizasghar@gmail.com",
-                pass: "hfra fdvu qpgp veom",
->>>>>>> 80b69a8aef87a0fc8697f8b4f0e9b9241f3ac29e
             },
         })
 
         const mailOptions = {
-<<<<<<< HEAD
             from: "ucpedua@gmail.com",
-=======
-            from: "hamizasghar@gmail.com",
->>>>>>> 80b69a8aef87a0fc8697f8b4f0e9b9241f3ac29e
             to: teacherData.email,
             subject: "🎉 Teacher Registration Approved - UCP Portal",
             html: `
