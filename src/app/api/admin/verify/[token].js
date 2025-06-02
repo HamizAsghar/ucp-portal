@@ -1,4 +1,3 @@
-// pages/api/verify/[token]/route.js
 import jwt from "jsonwebtoken"
 import { connectDB } from "@/lib/mongodb"
 import RegistrationRequest from "@/models/RegistrationRequest"
@@ -26,7 +25,9 @@ export async function GET(req, { params }) {
     user.isVerified = true
     await user.save()
 
-    return NextResponse.redirect(`${process.env.NEXT_PUBLIC_BASE_URL}/teacherlogin?verified=1`)
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "https://ucp-portal-edu.vercel.app";
+
+    return NextResponse.redirect(`${baseURL}/teacherlogin?verified=1`)
   } catch (err) {
     return NextResponse.json({ message: "Invalid or expired token" }, { status: 400 })
   }
