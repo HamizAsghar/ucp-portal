@@ -92,7 +92,7 @@ export async function POST(request) {
         });
 
         // Verification email content
-        const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "https://ucp-portal-edu.vercel.app";
+        const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
         const verificationUrl = `${baseURL}/verify-email?token=${verificationToken}`;
         const mailOptions = {
             from: process.env.EMAIL_USER,

@@ -28,7 +28,7 @@ export async function GET(request) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
         }
 
-        const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "https://ucp-portal-edu.vercel.app";
+        const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
         if (user.isVerified) {
             return NextResponse.redirect(new URL("/teacherlogin?message=Email already verified", baseURL));

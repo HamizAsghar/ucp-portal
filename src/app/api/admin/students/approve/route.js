@@ -5,14 +5,11 @@ import Student from "@/models/Student"
 import ClassSection from "@/models/ClassSection"
 import nodemailer from "nodemailer"
 
-// SMS function using a simple SMS API (you can use any SMS service)
 async function sendSMS(phone, message) {
     try {
-        // For demo purposes, we'll just log the SMS
-        // In production, you would integrate with SMS services like Twilio, etc.
+      
         console.log(`📱 SMS to ${phone}: ${message}`)
 
-        // Simulate SMS sending
         return new Promise((resolve) => {
             setTimeout(() => {
                 console.log("✅ SMS sent successfully (simulated)")
