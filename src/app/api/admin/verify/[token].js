@@ -25,7 +25,7 @@ export async function GET(req, { params }) {
     user.isVerified = true
     await user.save()
 
-    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "https://ucp-portal-edu.vercel.app";
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
     return NextResponse.redirect(`${baseURL}/teacherlogin?verified=1`)
   } catch (err) {

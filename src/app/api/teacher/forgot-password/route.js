@@ -37,7 +37,7 @@ export async function POST(request) {
                 pass: process.env.EMAIL_PASS,
             },
         });
-        const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "https://ucp-portal-edu.vercel.app";
+        const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
         const resetUrl = `${baseURL}/reset-password?token=${resetToken}`;
         const mailOptions = {
             from: process.env.EMAIL_USER,
