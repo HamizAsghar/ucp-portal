@@ -1,25 +1,26 @@
 import { NextResponse } from "next/server"
 import connectDB from "@/lib/mongodb"
-import ClassSection from "@/models/ClassSection"
+import RegistrationRequest from "@/models/RegistrationRequest"
 
 export async function GET(request) {
     try {
-        await connectDB()
+         await connectDB();
 
-        const sections = await ClassSection.find({})
-            .populate("students", "name email registrationNumber")
-            .sort({ semester: 1, section: 1 })
+        const requests = await RegistrationRequest.find({
+            status: "pending",
+        })
+            .sort({ createdAt: -1 })
             .lean()
 
         return NextResponse.json(
             {
-                sections,
-                count: sections.length,
+                requests,
+                count: requests.length,
             },
             { status: 200 },
         )
     } catch (error) {
-        console.error("Error fetching sections:", error)
+        console.error("Error fetching teacher requests:", error)
         return NextResponse.json({ message: "Internal server error" }, { status: 500 })
     }
 }

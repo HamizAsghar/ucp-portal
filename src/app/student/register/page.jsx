@@ -1,16 +1,12 @@
-import StudentLoginForm from '@/components/student/StudentLoginForm'
+import StudentRegisterForm from '@/components/student/StudentResgisterForm'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <StudentLoginForm/>
+      <StudentRegisterForm/>
     </div>
   )
 }
 
 export default page
-
-
-
-

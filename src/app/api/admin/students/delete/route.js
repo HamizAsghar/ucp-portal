@@ -1,44 +1,41 @@
 import { NextResponse } from "next/server"
-import { connectDB } from "@/lib/mongodb"
-import StudentRequest from "@/models/StudentRequest"
+import connectDB from "@/lib/mongodb"
 import Student from "@/models/Student"
 import ClassSection from "@/models/ClassSection"
 
 export async function DELETE(request) {
     try {
-        const { studentId } = await request.json()
-
         await connectDB()
 
-        // Find the student request
-        const studentRequest = await StudentRequest.findById(studentId)
-        if (!studentRequest) {
+        const { studentId } = await request.json()
+
+        if (!studentId) {
+            return NextResponse.json({ message: "Student ID is required" }, { status: 400 })
+        }
+
+        const student = await Student.findById(studentId)
+        if (!student) {
             return NextResponse.json({ message: "Student not found" }, { status: 404 })
         }
 
-        // Find and delete from Student collection if approved
-        if (studentRequest.status === "approved") {
-            const student = await Student.findOne({ email: studentRequest.email })
-            if (student) {
-                // Remove from class section
-                await ClassSection.updateOne(
-                    { semester: student.semester, section: student.section },
-                    {
-                        $pull: { students: student._id },
-                        $inc: { enrolledStudents: -1 },
-                    },
-                )
+        // Remove student from class section
+        const classSection = await ClassSection.findOne({
+            semester: student.semester,
+            section: student.section,
+        })
 
-                await Student.findByIdAndDelete(student._id)
-            }
+        if (classSection) {
+            classSection.students = classSection.students.filter((id) => id.toString() !== studentId)
+            classSection.enrolledStudents = classSection.students.length
+            await classSection.save()
         }
 
-        // Delete the student request
-        await StudentRequest.findByIdAndDelete(studentId)
+        // Delete student
+        await Student.findByIdAndDelete(studentId)
 
         return NextResponse.json({ message: "Student deleted successfully" }, { status: 200 })
     } catch (error) {
-        console.error("Student deletion error:", error)
+        console.error("Error deleting student:", error)
         return NextResponse.json({ message: "Internal server error" }, { status: 500 })
     }
 }
