@@ -1,8 +1,9 @@
+
 "use client"
 
 import { motion } from "framer-motion"
 import { useState } from "react"
-import { LucideUser, LucideLock, LucideMail, LucideArrowLeft, LucideGraduationCap } from "lucide-react"
+import { LucideMail, LucideLock, LucideArrowLeft, LucideGraduationCap } from "lucide-react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import Swal from "sweetalert2"
@@ -10,7 +11,6 @@ import Swal from "sweetalert2"
 export default function StudentLoginForm() {
     const [formData, setFormData] = useState({
         email: "",
-        username: "",
         password: "",
     })
     const [loading, setLoading] = useState(false)
@@ -27,7 +27,7 @@ export default function StudentLoginForm() {
         e.preventDefault()
         setLoading(true)
 
-        if (!formData.email || !formData.username || !formData.password) {
+        if (!formData.email || !formData.password) {
             Swal.fire({
                 icon: "error",
                 title: "Missing Information",
@@ -45,23 +45,22 @@ export default function StudentLoginForm() {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify(formData),
+                credentials: "include",
             })
 
             const data = await response.json()
 
             if (response.ok) {
-                // Store student data in localStorage
-                localStorage.setItem("studentData", JSON.stringify(data))
-
                 Swal.fire({
                     icon: "success",
                     title: "Login Successful!",
                     text: `Welcome ${data.student.name}!`,
                     confirmButtonColor: "#10b981",
-                    timer: 2000,
+                    timer: 1500,
                     timerProgressBar: true,
                 }).then(() => {
-                    router.push("/student/dashboard")
+                    // Force a full page reload to ensure fresh data
+                    window.location.href = "/student/dashboard"
                 })
             } else {
                 Swal.fire({
@@ -94,8 +93,8 @@ export default function StudentLoginForm() {
     }
 
     const item = {
-        hidden: { y: 20, opacity: 0 },
-        show: { y: 0, opacity: 1, transition: { duration: 0.5 } },
+        hidden: { y: 10, opacity: 0 },
+        show: { y: 0, opacity: 1, transition: { duration: 0.3 } },
     }
 
     return (
@@ -131,89 +130,68 @@ export default function StudentLoginForm() {
                 variants={container}
                 initial="hidden"
                 animate="show"
-                className="w-full max-w-md bg-black/40 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-blue-500/30 relative z-10"
+                className="w-full max-w-md bg-black/40 backdrop-blur-md rounded-2xl shadow-lg p-6 border border-blue-500/20 relative z-10"
             >
                 {/* Header */}
-                <motion.div variants={item} className="text-center mb-8">
-                    <Link href="/" className="inline-flex items-center text-blue-400 hover:text-blue-300 mb-4">
-                        <LucideArrowLeft className="mr-2" size={20} />
-                        Back to Main Login
+                <motion.div variants={item} className="text-center mb-6">
+                    <Link href="/" className="inline-flex items-center text-blue-400 hover:text-blue-300 mb-3">
+                        <LucideArrowLeft className="mr-2" size={18} />
+                        Back to Main
                     </Link>
-                    <div className="flex justify-center mb-4">
-                        <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 via-purple-500 to-indigo-500 flex items-center justify-center">
-                            <LucideGraduationCap size={40} className="text-white" />
+                    <div className="flex justify-center mb-3">
+                        <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center">
+                            <LucideGraduationCap size={32} className="text-white" />
                         </div>
                     </div>
-                    <h1 className="text-3xl font-bold text-white mb-2">Student Portal</h1>
-                    <div className="h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 mx-auto rounded-full w-24"></div>
-                    <p className="text-blue-200 mt-3 text-sm">Login with your class credentials</p>
+                    <h1 className="text-2xl font-bold text-white mb-1">Student Portal</h1>
+                    <p className="text-blue-200 text-sm">Login to access your dashboard</p>
                 </motion.div>
 
                 {/* Form */}
-                <form onSubmit={handleSubmit} className="space-y-5">
+                <form onSubmit={handleSubmit} className="space-y-4">
                     <motion.div variants={item} className="relative">
                         <input
                             type="email"
                             name="email"
-                            placeholder="Your Registered Email"
+                            placeholder="Email"
                             value={formData.email}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-3 bg-white/10 border border-blue-500/30 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            className="w-full px-4 py-2 bg-white/10 border border-blue-500/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
                             required
                         />
-                        <LucideMail className="absolute right-3 top-3.5 text-blue-400" size={20} />
-                    </motion.div>
-
-                    <motion.div variants={item} className="relative">
-                        <input
-                            type="text"
-                            name="username"
-                            placeholder="Class Username (from teacher)"
-                            value={formData.username}
-                            onChange={handleInputChange}
-                            className="w-full px-4 py-3 bg-white/10 border border-blue-500/30 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                            required
-                        />
-                        <LucideUser className="absolute right-3 top-3.5 text-blue-400" size={20} />
+                        <LucideMail className="absolute right-3 top-2.5 text-blue-400" size={18} />
                     </motion.div>
 
                     <motion.div variants={item} className="relative">
                         <input
                             type="password"
                             name="password"
-                            placeholder="Class Password (from teacher)"
+                            placeholder="Password"
                             value={formData.password}
                             onChange={handleInputChange}
-                            className="w-full px-4 py-3 bg-white/10 border border-blue-500/30 rounded-xl text-white placeholder-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                            className="w-full px-4 py-2 bg-white/10 border border-blue-500/20 rounded-lg text-white placeholder-blue-200 focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
                             required
                         />
-                        <LucideLock className="absolute right-3 top-3.5 text-blue-400" size={20} />
-                    </motion.div>
-
-                    <motion.div variants={item} className="bg-blue-600/20 border border-blue-500/30 rounded-xl p-4">
-                        <p className="text-blue-200 text-sm text-center">
-                            💡 <strong>Note:</strong> Use the username and password provided by your teacher along with your
-                            registered email address.
-                        </p>
+                        <LucideLock className="absolute right-3 top-2.5 text-blue-400" size={18} />
                     </motion.div>
 
                     <motion.button
                         variants={item}
                         type="submit"
                         disabled={loading}
-                        className="w-full py-3 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 hover:from-blue-700 hover:via-purple-700 hover:to-indigo-700 text-white font-semibold rounded-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
+                        className="w-full py-2 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-medium rounded-lg transition disabled:opacity-50"
+                        whileHover={{ scale: 1.01 }}
+                        whileTap={{ scale: 0.99 }}
                     >
-                        {loading ? "Logging in..." : "Login to Class"}
+                        {loading ? "Logging in..." : "Login"}
                     </motion.button>
                 </form>
 
-                <motion.div variants={item} className="text-center mt-6">
+                <motion.div variants={item} className="text-center mt-4">
                     <p className="text-blue-200 text-sm">
-                        Not registered yet?{" "}
-                        <Link href="/student/register" className="text-blue-400 hover:text-blue-300 font-medium">
-                            Register here
+                        Not registered?{" "}
+                        <Link href="/student/register" className="text-blue-400 hover:text-blue-300">
+                            Register
                         </Link>
                     </p>
                 </motion.div>

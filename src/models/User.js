@@ -1,116 +1,77 @@
-// import mongoose from "mongoose"
 
-// const UserSchema = new mongoose.Schema({
-//     name: {
-//         type: String,
-//         required: true,
-//     },
-//     email: {
-//         type: String,
-//         required: true,
-//         unique: true,
-//     },
-//     phone: {
-//         type: String,
-//         required: true,
-//     },
-//     password: {
-//         type: String,
-//         required: true,
-//     },
-//     image: {
-//         type: String,
-//         default: null,
-//     },
-//     role: {
-//         type: String,
-//         enum: ["teacher", "student", "admin"],
-//         default: "teacher",
-//     },
-//     isApproved: {
-//         type: Boolean,
-//         default: false,
-//     },
-//     createdAt: {
-//         type: Date,
-//         default: Date.now,
-//     },
-// })
-
-// export default mongoose.models.User || mongoose.model("User", UserSchema)
-
-
-
-
-
-
-
-
-
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema(
-    {
-        name: {
-            type: String,
-            required: true,
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    phone: {
+      type: String,
+      required: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      default: null,
+    },
+    role: {
+      type: String,
+      enum: ["teacher", "admin"],
+      default: "teacher",
+    },
+    isApproved: {
+      type: Boolean,
+      default: false,
+    },
+    classAssignments: [
+      {
+        classId: {
+          type: String,
+          required: true,
         },
-        email: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-        phone: {
-            type: String,
-            required: true,
-        },
-        password: {
-            type: String,
-            required: true,
-        },
-        image: {
-            type: String,
-        },
-        role: {
-            type: String,
-            enum: ["teacher", "admin"],
-            default: "teacher",
-        },
-        isApproved: {
-            type: Boolean,
-            default: false,
-        },
-        // Class assignment fields
-        assignedClass: {
-            type: String,
-            default: null,
+        sections: {
+          type: [String],
+          required: true,
         },
         subject: {
-            type: String,
-            default: null,
+          type: String,
+          required: true,
         },
-        classId: {
-            type: String,
-            default: null,
+        classDisplayName: {
+          type: String,
+          required: true,
         },
         classCredentials: {
-            username: {
-                type: String,
-                default: null,
-            },
-            password: {
-                type: String,
-                default: null,
-            },
+          username: {
+            type: String,
+            required: true,
+          },
+          password: {
+            type: String,
+            required: true,
+          },
         },
         assignedAt: {
-            type: Date,
-            default: null,
+          type: Date,
+          required: true,
         },
-    },
-    {
-        timestamps: true,
-    },
-)
+      },
+    ],
+  },
+  {
+    timestamps: true,
+    strict: "throw",
+  }
+);
 
-export default mongoose.models.User || mongoose.model("User", UserSchema)
+export default mongoose.models.User || mongoose.model("User", UserSchema);

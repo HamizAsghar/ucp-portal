@@ -42,7 +42,8 @@ export async function GET(request) {
         user.verificationToken = null;
         await user.save();
 
-        return NextResponse.redirect(new URL("/teacherlogin?message=Email verified successfully", baseURL));
+        // return NextResponse.redirect(new URL("/teacherlogin?message=Email verified successfully", baseURL));
+        return NextResponse.redirect(new URL("/teacherlogin", baseURL));
 
     } catch (error) {
         console.error("Verification error:", error);
