@@ -37,7 +37,7 @@ export async function GET(request) {
       return NextResponse.json({ message: "Student request not found" }, { status: 404 });
     }
 
-    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL ;
 
     if (unverifiedStudent.isVerified) {
       return NextResponse.redirect(new URL("/student?message=Email%20already%20verified", baseURL));

@@ -702,7 +702,7 @@ export async function POST(request) {
     }
 
     // Send verification email
-    const baseURL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
     const verificationUrl = `${baseURL}/verify-email?token=${verificationToken}&role=student`;
     const mailOptions = {
       from: `"UCP Portal" <${process.env.EMAIL_USER}>`,
