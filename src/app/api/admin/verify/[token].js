@@ -27,7 +27,7 @@ export async function GET(req, { params }) {
 
     const baseURL = process.env.NEXT_PUBLIC_BASE_URL;
 
-    return NextResponse.redirect(`${baseURL}/teacherlogin?verified=1`)
+    return NextResponse.redirect(`${baseURL}/teacher?verified=1`)
   } catch (err) {
     return NextResponse.json({ message: "Invalid or expired token" }, { status: 400 })
   }

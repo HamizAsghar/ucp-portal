@@ -385,7 +385,7 @@ export default function LoginForm() {
                 } else {
                     sessionStorage.setItem("user", JSON.stringify(data.user))
                 }
-                router.push("/dashboard")
+                router.push("/teacher/dashboard")
             } else {
                 setError(data.message || "Login failed")
             }

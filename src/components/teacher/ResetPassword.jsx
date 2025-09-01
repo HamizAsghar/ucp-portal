@@ -68,7 +68,7 @@ export default function ResetPasswordForm() {
             if (response.ok) {
                 setSuccess("Password reset successfully. Redirecting to login...")
                 setTimeout(() => {
-                    router.push("/teacherlogin?message=Password reset successfully")
+                    router.push("/teacher?message=Password reset successfully")
                 }, 2000)
             } else {
                 setError(data.message || "Failed to reset password")
@@ -162,7 +162,7 @@ export default function ResetPasswordForm() {
                 className="w-full max-w-md bg-black/50 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-white/10 relative z-10"
             >
                 <motion.div variants={item} className="text-center mb-8">
-                    <Link href="/teacherlogin" className="inline-flex items-center text-blue-400 hover:text-blue-300 mb-4">
+                    <Link href="/teacher" className="inline-flex items-center text-blue-400 hover:text-blue-300 mb-4">
                         <LucideArrowLeft className="mr-2" size={20} />
                         Back to Login
                     </Link>
