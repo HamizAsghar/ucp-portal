@@ -95,6 +95,11 @@ export default function StudentDashboard() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const [enrolledClasses, setEnrolledClasses] = useState([]);
 
+  // Fetch student data on component mount
+  useEffect(() => {
+    fetchStudentData();
+  }, []);
+
   // Fetch enrolled classes
   useEffect(() => {
     async function fetchEnrolledClasses() {
