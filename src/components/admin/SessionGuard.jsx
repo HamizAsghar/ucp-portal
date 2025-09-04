@@ -1,25 +1,3 @@
-// "use client"
-// import { AlertCircle } from "lucide-react"
-
-// export default function SessionGuard({ children, hasActiveSession }) {
-//     if (hasActiveSession) {
-//         return children
-//     }
-
-//     return (
-//         <div className="min-h-screen bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center p-4">
-//             <div className="bg-gray-800/50 backdrop-blur-md rounded-xl p-8 border border-gray-700 max-w-md w-full text-center">
-//                 <AlertCircle className="mx-auto text-yellow-400 mb-4" size={64} />
-//                 <h2 className="text-2xl font-bold text-white mb-4">No Active Session</h2>
-//                 <p className="text-gray-300 mb-6">Please start a session first to access the admin dashboard features.</p>
-//                 <div className="bg-yellow-600/20 border border-yellow-500/30 rounded-lg p-4">
-//                     <p className="text-yellow-400 text-sm">Go to Session Management to start a new academic session.</p>
-//                 </div>
-//             </div>
-//         </div>
-//     )
-// }
-
 "use client"
 
 import { AlertTriangle, Clock, BookOpen } from "lucide-react"
@@ -45,7 +23,7 @@ export default function SessionGuard({ hasActiveSession }) {
                             <span className="text-yellow-400 font-medium">Session Break</span>
                         </div>
                         <p className="text-yellow-200 text-sm">
-                            🎉 Your semester has ended! Enjoy your semester break and wait for further enrollment opportunities.
+                            Your semester has ended! Enjoy your semester break and wait for further enrollment opportunities.
                         </p>
                     </div>
 
@@ -66,7 +44,7 @@ export default function SessionGuard({ hasActiveSession }) {
 
                     <div className="mt-6 p-4 bg-blue-600/20 border border-blue-500/30 rounded-lg">
                         <p className="text-blue-200 text-sm">
-                            💡 <strong>Note:</strong> Go to Session Management to start a new academic session.
+                            <strong>Note:</strong> Go to Session Management to start a new academic session.
                         </p>
                     </div>
                 </div>
